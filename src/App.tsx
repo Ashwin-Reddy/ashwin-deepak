@@ -1,13 +1,32 @@
+import { useState, useEffect } from 'react'
 import './App.css'
+import Projects from './components/Projects'
 
 function App() {
+  const [activeSection, setActiveSection] = useState('home')
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const scrollPosition = window.scrollY + 100
+      const projectsSection = document.getElementById('projects')
+      
+      if (projectsSection && scrollPosition >= projectsSection.offsetTop) {
+        setActiveSection('projects')
+      } else {
+        setActiveSection('home')
+      }
+    }
+
+    window.addEventListener('scroll', handleScroll)
+    return () => window.removeEventListener('scroll', handleScroll)
+  }, [])
   return (
     <div className="app">
       {/* Navigation */}
       <nav className="navbar">
         <a href="#home" className="nav-logo">A<span className="highlight">R.</span></a>
         <div className="nav-menu">
-          <a href="#projects" className="nav-link">Projects</a>
+          <a href="#projects" className={`nav-link ${activeSection === 'projects' ? 'active' : ''}`}>Projects</a>
           <a href="#skills" className="nav-link">Skills</a>
           <a href="#blogs" className="nav-link">Blogs</a>
         </div>
@@ -50,6 +69,8 @@ function App() {
           </div>
         </div>
       </main>
+      
+      <Projects />
     </div>
   )
 }

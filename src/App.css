@@ -3,7 +3,6 @@
   background: #323649;
   color: white;
   font-family: Helvetica, Arial, sans-serif;
-  overflow: hidden;
 }
 
 /* Navigation */
@@ -32,19 +31,33 @@
 
 .nav-menu {
   display: flex;
-  gap: 2rem;
+  gap: 3rem;
 }
 
 .nav-link {
   color: rgba(255, 255, 255, 0.7);
   text-decoration: none;
   font-weight: 500;
+  font-size: 1.1rem;
   padding: 0.5rem 0;
   transition: color 0.3s ease;
+  position: relative;
 }
 
-.nav-link:hover {
-  color: #feca57;
+.nav-link:hover,
+.nav-link.active {
+  color: #f9b234;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #f9b234;
+  border-radius: 2px;
 }
 
 
