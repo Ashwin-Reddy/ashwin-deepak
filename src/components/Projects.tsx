@@ -1,49 +1,8 @@
 import { useState, useEffect } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import './Projects.css'
-
-const projectsData = [
-  {
-    id: 1,
-    title: "Smart Analytics",
-    subtitle: "Data-driven Business Intelligence Platform",
-    description: "Advanced analytics dashboard that processes large datasets to provide actionable business insights with real-time visualization and predictive modeling capabilities.",
-    image: "📊",
-    githubUrl: "https://github.com/Ashwin-Reddy/smart-analytics"
-  },
-  {
-    id: 2,
-    title: "CloudSync Pro",
-    subtitle: "Enterprise Cloud Management Solution", 
-    description: "Comprehensive cloud infrastructure management tool that automates deployment, monitoring, and scaling of applications across multiple cloud providers.",
-    image: "☁️",
-    githubUrl: "https://github.com/Ashwin-Reddy/cloudsync-pro"
-  },
-  {
-    id: 3,
-    title: "T.I.T.A.N",
-    subtitle: "Tech-based Interactive Task & Assistant Network",
-    description: "TITAN is a voice assistant that can perform various tasks such as answering questions, providing weather updates, fetching news, and more. It utilizes speech recognition, NLP, and API integrations to enhance user interactions.",
-    image: "/project_titan.png",
-    githubUrl: "https://github.com/Ashwin-Reddy/TITAN"
-  },
-  {
-    id: 4,
-    title: "SecureVault",
-    subtitle: "Blockchain-based Security Platform",
-    description: "Next-generation security platform utilizing blockchain technology for secure data storage, identity verification, and encrypted communication channels.",
-    image: "🔒",
-    githubUrl: "https://github.com/Ashwin-Reddy/secure-vault"
-  },
-  {
-    id: 5,
-    title: "EcoTracker",
-    subtitle: "Environmental Impact Monitoring System",
-    description: "IoT-enabled environmental monitoring solution that tracks carbon footprint, energy consumption, and sustainability metrics for organizations and individuals.",
-    image: "🌱",
-    githubUrl: "https://github.com/Ashwin-Reddy/eco-tracker"
-  }
-]
+import projectsData from '../data/projects.json'
+import type { Project } from '../types/projects'
 
 const Projects = () => {
   const [currentProject, setCurrentProject] = useState(2) // T.I.T.A.N is active (index 2)
@@ -126,19 +85,34 @@ const Projects = () => {
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.4 }}
           >
-            {projectsData.map((project, index) => (
-              <motion.div
-                key={project.id}
-                className={`project-card ${index === currentProject ? 'active' : ''}`}
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{
-                  opacity: index === currentProject ? 1 : 0.4,
-                  scale: index === currentProject ? 1 : 0.85,
-                  x: (index - currentProject) * (window.innerWidth < 768 ? 120 : 180),
-                  rotateY: (index - currentProject) * 15,
-                  zIndex: index === currentProject ? 10 : Math.abs(index - currentProject),
-                  filter: index === currentProject ? "blur(0px)" : "blur(3px)"
-                }}
+            {(projectsData as Project[]).map((project: Project, index: number) => {
+              const totalItems = projectsData.length;
+              const angle = (2 * Math.PI * index) / totalItems;
+              const radius = window.innerWidth < 768 ? 200 : 300;
+              const rotationOffset = (2 * Math.PI * currentProject) / totalItems;
+              
+              // Calculate circular position
+              const adjustedAngle = angle - rotationOffset;
+              const x = Math.cos(adjustedAngle) * radius;
+              const z = Math.sin(adjustedAngle) * radius;
+              
+              // Determine if this is the active (front) item
+              const normalizedIndex = ((index - currentProject + totalItems) % totalItems);
+              const isActive = normalizedIndex === 0;
+              
+              return (
+                <motion.div
+                  key={project.id}
+                  className={`project-card ${isActive ? 'active' : ''}`}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{
+                    opacity: isActive ? 1 : Math.max(0.25, 1 - Math.abs(z) / radius),
+                    scale: isActive ? 1.05 : Math.max(0.65, 1 - Math.abs(z) / (radius * 2)),
+                    x: x,
+                    z: z,
+                    rotateY: (adjustedAngle * 180) / Math.PI,
+                    zIndex: isActive ? 10 : Math.max(1, 5 - Math.abs(Math.round(z / 50))),
+                  }}
                 whileHover={{ 
                   y: index === currentProject ? -10 : -5,
                   scale: index === currentProject ? 1.02 : 0.87,
@@ -226,7 +200,8 @@ const Projects = () => {
                   </motion.a>
                 </div>
               </motion.div>
-            ))}
+              )
+            })}
           </motion.div>
         </div>
         

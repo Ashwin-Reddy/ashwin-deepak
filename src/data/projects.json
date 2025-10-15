@@ -1,0 +1,42 @@
+[
+    {
+        "id": 1,
+        "title": "Smart Analytics",
+        "subtitle": "Data-driven Business Intelligence Platform",
+        "description": "Advanced analytics dashboard that processes large datasets to provide actionable business insights with real-time visualization and predictive modeling capabilities.",
+        "image": "📊",
+        "githubUrl": "https://github.com/Ashwin-Reddy/smart-analytics"
+    },
+    {
+        "id": 2,
+        "title": "CloudSync Pro",
+        "subtitle": "Enterprise Cloud Management Solution",
+        "description": "Comprehensive cloud infrastructure management tool that automates deployment, monitoring, and scaling of applications across multiple cloud providers.",
+        "image": "☁️",
+        "githubUrl": "https://github.com/Ashwin-Reddy/cloudsync-pro"
+    },
+    {
+        "id": 3,
+        "title": "T.I.T.A.N",
+        "subtitle": "Tech-based Interactive Task & Assistant Network",
+        "description": "TITAN is a voice assistant that can perform various tasks such as answering questions, providing weather updates, fetching news, and more. It utilizes speech recognition, NLP, and API integrations to enhance user interactions.",
+        "image": "/project_titan.png",
+        "githubUrl": "https://github.com/Ashwin-Reddy/TITAN-chatbot"
+    },
+    {
+        "id": 4,
+        "title": "SecureVault",
+        "subtitle": "Blockchain-based Security Platform",
+        "description": "Next-generation security platform utilizing blockchain technology for secure data storage, identity verification, and encrypted communication channels.",
+        "image": "🔒",
+        "githubUrl": "https://github.com/Ashwin-Reddy/secure-vault"
+    },
+    {
+        "id": 5,
+        "title": "EcoTracker",
+        "subtitle": "Environmental Impact Monitoring System",
+        "description": "IoT-enabled environmental monitoring solution that tracks carbon footprint, energy consumption, and sustainability metrics for organizations and individuals.",
+        "image": "🌱",
+        "githubUrl": "https://github.com/Ashwin-Reddy/eco-tracker"
+    }
+]
